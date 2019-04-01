@@ -8,22 +8,46 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.register(Cell.self, forCellReuseIdentifier: "cellId")
+        
+        navigationItem.title = "Twitter "
+        
         // Do any additional setup after loading the view, typically from a nib.
+
+        loadCommitsData()
+    }
+    
+    func loadCommitsData() {
         Client.sharedInstance().getRepoCommits { (success, error) in
             performUIUpdatesOnMain {
                 if success {
                     print("sucess")
-                    print(Client.sharedInstance().commitArrayData.count)
+                    self.tableView.reloadData()
                 } else {
                     print("fail")
                 }
             }
         }
+    }
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 200
+    }
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! Cell
         
+        let commit = Client.sharedInstance().commitArrayData[indexPath.row]
+        cell.commit = commit
+        
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return Client.sharedInstance().commitArrayData.count
     }
 }
 
