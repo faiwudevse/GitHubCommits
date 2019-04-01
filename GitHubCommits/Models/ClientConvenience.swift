@@ -15,14 +15,12 @@ extension Client {
             if let error = error {
                 completionHandlerForGetRepoCommits(false, error.localizedDescription)
             } else {
-                completionHandlerForGetRepoCommits(true, nil)
                 guard let commitsDict = results as? [[String: AnyObject]] else {
                     self.errorNotAbleToParse()
                     return
                 }
                 
                 self.commitArrayData.removeAll()
-                
                 
                 
                 for commitRecord in commitsDict {
@@ -54,7 +52,7 @@ extension Client {
                     let commitData = Commit(authorName: name, shaNumber: sha, message: message)
                     self.commitArrayData.append(commitData)
                 }
-                print(self.commitArrayData)
+                completionHandlerForGetRepoCommits(true, nil)
             }
         }
     }

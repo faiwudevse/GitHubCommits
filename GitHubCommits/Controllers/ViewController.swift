@@ -13,6 +13,17 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        Client.sharedInstance().getRepoCommits { (success, error) in
+            performUIUpdatesOnMain {
+                if success {
+                    print("sucess")
+                    print(Client.sharedInstance().commitArrayData.count)
+                } else {
+                    print("fail")
+                }
+            }
+        }
+        
     }
 }
 
