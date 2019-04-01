@@ -20,14 +20,17 @@ extension Client {
                     self.errorNotAbleToParse()
                     return
                 }
-
+                
+                self.commitArrayData.removeAll()
+                
+                
+                
                 for commitRecord in commitsDict {
                     guard let sha = commitRecord[JSONResponseKeys.Sha] as? String else {
                         self.errorCanNotBeFound(JSONResponseKeys.Sha, commitRecord)
                         return
                     }
-                    print(sha)
-
+                    
                     guard let commit = commitRecord[JSONResponseKeys.Commit] as? [String : AnyObject] else {
                         self.errorCanNotBeFound(JSONResponseKeys.Commit, commitRecord)
                         return
@@ -43,14 +46,15 @@ extension Client {
                         return
                     }
                     
-                    print(name)
-
                     guard let message = commit[JSONResponseKeys.Message] as? String else {
                         self.errorCanNotBeFound(JSONResponseKeys.Message, commit)
                         return
                     }
-                    print(message)
+                    
+                    let commitData = Commit(authorName: name, shaNumber: sha, message: message)
+                    self.commitArrayData.append(commitData)
                 }
+                print(self.commitArrayData)
             }
         }
     }

@@ -13,6 +13,7 @@ class Client : NSObject {
     // MARK: Properties
     var session = URLSession.shared
     
+    var commitArrayData: [Commit] = []
     // MARK: Intializers
     
     override init() {
