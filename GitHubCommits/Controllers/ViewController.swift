@@ -15,7 +15,7 @@ class ViewController: UITableViewController {
         
         tableView.register(Cell.self, forCellReuseIdentifier: "cellId")
         
-        navigationItem.title = "Twitter "
+        navigationItem.title = "Twitter Bookkeeper commits"
         
         // Do any additional setup after loading the view, typically from a nib.
 
@@ -34,8 +34,9 @@ class ViewController: UITableViewController {
             }
         }
     }
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 200
+        return 450
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! Cell

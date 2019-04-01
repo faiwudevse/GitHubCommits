@@ -49,7 +49,7 @@ extension Client {
                         return
                     }
                     
-                    let commitData = Commit(authorName: name, shaNumber: sha, message: message)
+                    let commitData = Commit(authorName: name, shaNumber: sha, message: message.trimmingCharacters(in: .whitespacesAndNewlines))
                     self.commitArrayData.append(commitData)
                 }
                 completionHandlerForGetRepoCommits(true, nil)
